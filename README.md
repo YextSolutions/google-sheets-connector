@@ -9,4 +9,4 @@ Use this to use Google Sheets as your data source. Each row/column can be transf
 - majorDimension
   - This can be either ROWS or COLUMNS. If each row should be registered as an individual entity, then input ROWS. If each column should be registered as an individual entity, then input COLUMNS.
 - dataRange
-  Use A1
+  - Use A1 or R1C1 notation to indicate which cells to include in the data connector.
