@@ -5,7 +5,7 @@ Use this to use Google Sheets as your data source. Each row/column can be transf
 - Google Spreadsheet ID
   - This is found in the URL of your spreadsheet. For example, if the spreadsheet URL is https://docs.google.com/spreadsheets/d/111/edit, then the     spreadsheet ID would = 111.
 - Google Linked Account
-  - This is found in the Yext platform under Configuration > Linked Accounts >
+  - This is found in the Yext platform under Configuration > Linked Accounts > Google. Note down the linkedAccountId to use as your GooglelinkedAccount.
 - majorDimension
   - This can be either ROWS or COLUMNS. If each row should be registered as an individual entity, then input ROWS. If each column should be registered as an individual entity, then input COLUMNS.
 - dataRange
