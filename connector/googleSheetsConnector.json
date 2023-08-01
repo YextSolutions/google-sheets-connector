@@ -1,49 +1,53 @@
 {
-  "$id": "googleSheetsConnector",
-  "$schema": "https://schema.yext.com/config/km/connector/v3",
-  "displayName": "Google Sheets Connector",
-  "source": {
-    "sourceConfig": {
-      "apiPullConfig": {
-        "requestType": "GET",
-        "url": "https://sheets.googleapis.com/v4/spreadsheets/${{spreadsheetId}}/values:batchGet",
-        "authentication": {
-          "oauth": {
-            "linkedAccount": "${{linkedAccount}}"
-          }
+    "$id": "googleSheetsConnector",
+    "$schema": "https://schema.yext.com/config/km/connector/v4",
+    "displayName": "Google Sheets Connector",
+    "source": {
+        "sourceConfig": {
+            "apiPullConfig": {
+                "requestType": "GET",
+                "url": "https://sheets.googleapis.com/v4/spreadsheets/${{spreadsheetId}}/values:batchGet",
+                "authentication": {
+                    "oauth": {
+                        "linkedAccount": "${{linkedAccount}}"
+                    }
+                },
+                "headers": {},
+                "queryParams": {
+                    "majorDimension": "${{dimension}}",
+                    "ranges": "${{dataRange}}"
+                },
+                "dataFormat": "JSON"
+            }
         },
-        "headers": {},
-        "queryParams": {
-          "majorDimension": "${{dimension}}",
-          "ranges": "${{dataRange}}"
+        "baseSelector": {
+            "type": "JSON",
+            "header": "Entity Container",
+            "path": "valueRanges[0].values"
         },
-        "dataFormat": "JSON"
-      }
+        "selectors": [
+            {
+                "type": "JSON",
+                "header": "[]",
+                "path": "[]"
+            }
+        ]
     },
-    "baseSelector": {
-      "type": "JSON",
-      "header": "Entity Container",
-      "path": "valueRanges[0].values"
-    },
-    "selectors": [
-      {
-        "type": "JSON",
-        "header": "[]",
-        "path": "[]"
-      }
-    ]
-  },
-  "transforms": [
-    {
-      "function": {
-        "inputHeaders": {
-          "headers": [
-            "[]"
-          ]
-        },
-        "plugin": "gs_replace_comma",
-        "function": "replaceCommas"
-      }
+    "transforms": [
+        {
+            "function": {
+                "inputHeaders": {
+                    "headers": [
+                        "[]"
+                    ]
+                },
+                "plugin": "gs_replace_comma",
+                "function": "replaceCommas"
+            }
+        }
+    ],
+    "comprehensiveModeConfig": {
+        "comprehensiveSet": "ENTITIES_CREATED_BY_THIS_CONNECTOR",
+        "actionOnMissingEntities": "DELETE"
     }
-  ]
 }
